@@ -3,11 +3,11 @@ import { category } from "../Content/data";
 import { RiCloseLargeFill } from "react-icons/ri";
 
 
-const EditModel = ({ isOpen, onClose, handleSubmit, register, errors ,seteditopen,FiterValue,Leaddata}) => {
+const EditModel = ({ isOpen, onClose, register, errors ,seteditopen,FiterValue,Leaddata}) => {
   if (!isOpen) return null;
 
   const today = new Date().toISOString().split("T")[0];
-   console.log('edit model',Leaddata);
+   console.log('edit model',FiterValue);
    
    
 
@@ -21,7 +21,7 @@ const EditModel = ({ isOpen, onClose, handleSubmit, register, errors ,seteditope
           </button>
         </div>
         <div className="modal_content">
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form_group">
               <label htmlFor="title">E-mail</label>
               <input
@@ -45,6 +45,7 @@ const EditModel = ({ isOpen, onClose, handleSubmit, register, errors ,seteditope
             <div className="form_group">
               <label htmlFor="description">Name</label>
               <textarea
+              value={FiterValue.name}
                 name="name"
                 {...register("name", {
                   required: "Name is required",
@@ -60,6 +61,7 @@ const EditModel = ({ isOpen, onClose, handleSubmit, register, errors ,seteditope
   <input
     type="tel"
     name="mobile"
+    value={FiterValue.number}
     {...register("mobile", {
       required: "Mobile number is required",
       pattern: {
@@ -77,16 +79,16 @@ const EditModel = ({ isOpen, onClose, handleSubmit, register, errors ,seteditope
             <div className="form_group">
               <label htmlFor="product">Product</label>
               <select
-                name="product"
-                {...register("product", { required: "Product is required" })}
-              >
-                <option value="" disabled>
-                  Select a Product
-                </option>
-               <option value="A">A</option>
-               <option value="B">B</option>
-               <option value="C">C</option>
-              </select>
+  name="product"
+  {...register("product", { required: "Product is required" })}
+  value={FiterValue?.product || ""}  // Bind the value to FiterValue.product
+>
+  <option value="">Select a Product</option>
+  <option value="A">A</option>
+  <option value="B">B</option>
+  <option value="C">C</option>
+</select>
+
               {errors.product && (
                 <span className="error">{errors.product.message}</span>
               )}

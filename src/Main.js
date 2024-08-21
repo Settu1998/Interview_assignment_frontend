@@ -14,6 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useAuth } from "./context/AuthContext";
 import { IoIosArrowDown } from "react-icons/io";
 import Footer from "./components/Footer";
+import axios from "axios";
 
 const Main = () => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -25,16 +26,48 @@ const Main = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [activeFilter, setActiveFilter] = useState(filter[0].value);
   const [search, setSearch] = useState("");
-  const [FiterValue, setFiterValue] = useState({});
+  const [FiterValue, setFiterValue] = useState("");
   const [editopen,seteditopen] = useState(false);
 
 
-  const [Leaddata,setLeaddata] = useState();
+  const [Leaddata,setLeaddata] = useState([]);
 
+  const handleedit = (id) => {
+    seteditopen(true);
+    const fiterdata = Leaddata.filter((data) => data.id == id);
+    setFiterValue(fiterdata[0]);
+  
+    
+  }
 
-  const handleSelectToggle = useCallback(() => {
-    setIsSelectShow((prev) => !prev);
-  }, []);
+  const handleDelete = async(id) => {
+    const res = await axios.post('http://localhost:8001/api/deleteLead',{id: id});
+    console.log(res.data);
+    
+    if(res.data.code == 200){
+   const dleteafter = Leaddata.filter((data) => data.id !== id);
+   setLeaddata(dleteafter);
+    }else{
+    console.log(res.data.message);
+    
+    }
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFiterValue((prevState) => ({
+      ...prevState,
+      [name]: value,
+      id:FiterValue.id
+    }));
+  };
+
+  
+
+  const filteredLeaddata = Leaddata.filter((lead) =>
+    lead.name.toLowerCase().includes(search.toLowerCase()) || 
+    lead.email.toLowerCase().includes(search.toLowerCase()) // Add more fields to search if needed
+  );
 
   const handleCategoryChange = useCallback((category) => {
     setSelectedCategory(category);
@@ -141,16 +174,21 @@ const Main = () => {
             </div>
           </div>
           <TodoItem
-            todos={filteredResults}
-            completeTodo={completeTodo}
-            deleteTodo={deleteTodo}
-            Leaddata={Leaddata}
-            setLeaddata={setLeaddata}
-            editopen={editopen}
-            seteditopen={seteditopen}
-            setFiterValue={setFiterValue}
-            FiterValue={setFiterValue}
-          />
+  todos={filteredResults}
+  completeTodo={completeTodo}
+  deleteTodo={deleteTodo}
+  Leaddata={Leaddata}
+  setLeaddata={setLeaddata}
+  editopen={editopen}
+  seteditopen={seteditopen}
+  setFiterValue={setFiterValue}
+  FiterValue={FiterValue}  // Pass the actual state value
+  handleedit={handleedit}
+  handleChange={handleChange}
+  handleDelete={handleDelete}
+  filteredLeaddata ={filteredLeaddata }
+/>
+
           <AddTodoForm handleAddTodo={addTodo} toast={toast} setLeaddata={setLeaddata} />
         </div>
         <Footer />
