@@ -41,7 +41,7 @@ const Main = () => {
   }
 
   const handleDelete = async(id) => {
-    const res = await axios.post('http://localhost:8001/api/deleteLead',{id: id});
+    const res = await axios.post('https://interview-assignment-backend-zzx0.onrender.com/api/deleteLead',{id: id});
     console.log(res.data);
     
     if(res.data.code == 200){

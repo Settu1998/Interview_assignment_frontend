@@ -15,7 +15,7 @@ const AddTodoForm = ({ handleAddTodo, toast,setLeaddata }) => {
 
   const onSubmit = async(data) => {
 
-    const res = await axios.post('http://localhost:8001/api/createLead',data);
+    const res = await axios.post('https://interview-assignment-backend-zzx0.onrender.com/api/createLead',data);
     setLeaddata((previewdata) => [...previewdata,data])
     console.log(res.data);
     reset();

@@ -9,7 +9,7 @@ const Footer = () => {
       <p>
         GitHub:
         <a
-          href=" https://github.com/Aravindh2501/todo_task_new "
+          href=" https://github.com/Settu1998/Interview_assignment_frontend.git"
           style={{
             textDecoration: "underline",
             color: "#0D6EFD",
@@ -18,7 +18,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          https://github.com/Aravindh2501/todo_task_new
+          https://github.com/Settu1998/Interview_assignment
         </a>
       </p>
     </div>

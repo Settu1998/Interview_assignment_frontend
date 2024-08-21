@@ -25,7 +25,7 @@ const Login = () => {
 
     login(trimmedName, trimmedPassword);
 
-    const res = await axios.post('http://localhost:8001/api/signin',{
+    const res = await axios.post('https://interview-assignment-backend-zzx0.onrender.com/api/signin',{
       username: trimmedName,
       password: trimmedPassword
     });
@@ -33,7 +33,7 @@ const Login = () => {
   
     
     if(res.data.code === 200) {
-      navigate("/");
+      navigate("/home");
     }else{
       alert('Invalid credentials');
     }

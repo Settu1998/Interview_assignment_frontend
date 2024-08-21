@@ -25,7 +25,7 @@ const Register = () => {
       .toLowerCase()
       .replace(/\s+/g, "_");
     
-      const res = await axios.post('http://localhost:8001/api/signup',{
+      const res = await axios.post('https://interview-assignment-backend-zzx0.onrender.com/api/signup',{
         name: trimmedName,
         username: trimmedUsername,
         password: trimmedPassword
@@ -34,7 +34,7 @@ const Register = () => {
   
       login(trimmedName, trimmedUsername);
       if(res.status === 200) {
-        navigate("/");
+        navigate("/home");
       }else{
         alert('Invalid credentials');
       }
@@ -152,7 +152,7 @@ const Register = () => {
               Submit
             </button>
           </form>
-          <Link to={"/login"}>I already have an account, sign in</Link>
+          <Link to={"/"}>I already have an account, sign in</Link>
         </div>
       </div>
     </div>

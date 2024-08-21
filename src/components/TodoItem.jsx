@@ -24,7 +24,7 @@ const TodoItem = ({ filteredLeaddata ,handleDelete,handleedit,setFiterValue,Fite
   
 
 const fetchlead = async() => {
-  const res = await axios.get('http://localhost:8001/api/getlead');
+  const res = await axios.get('https://interview-assignment-backend-zzx0.onrender.com/api/getlead');
   if(res.data.code == 200){
     setLeaddata(res.data.message);
   }else{
@@ -37,7 +37,7 @@ const fetchlead = async() => {
 
 const handleeditdata = async(e) => {
   e.preventDefault()
-  const res = await axios.patch('http://localhost:8001/api/UpateLead',FiterValue);
+  const res = await axios.patch('https://interview-assignment-backend-zzx0.onrender.com/api/UpateLead',FiterValue);
   console.log(res.data);
   if(res.data.code == 200){
     seteditopen(false);
