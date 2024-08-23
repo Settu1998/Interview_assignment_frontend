@@ -28,12 +28,12 @@ const Main = () => {
   const [search, setSearch] = useState("");
   const [FiterValue, setFiterValue] = useState("");
   const [editopen,seteditopen] = useState(false);
-
+  const [open, setOpen] = React.useState(false);
 
   const [Leaddata,setLeaddata] = useState([]);
 
   const handleedit = (id) => {
-    seteditopen(true);
+    setOpen(true);
     const fiterdata = Leaddata.filter((data) => data.id == id);
     setFiterValue(fiterdata[0]);
   
@@ -62,13 +62,13 @@ const Main = () => {
     }));
   };
 
-  
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
   const filteredLeaddata = Leaddata.filter((lead) =>
-    lead.name.toLowerCase().includes(search.toLowerCase()) || 
-    lead.email.toLowerCase().includes(search.toLowerCase()) // Add more fields to search if needed
+    (lead.name.toLowerCase().includes(search.toLowerCase()) || 
+     lead.email.toLowerCase().includes(search.toLowerCase())) &&
+    (selectedFilter === "All" ? true : lead.product === selectedFilter)
   );
-
   const handleCategoryChange = useCallback((category) => {
     setSelectedCategory(category);
     setIsSelectShow(false);
@@ -78,10 +78,9 @@ const Main = () => {
     setIsFilterShow((prev) => !prev);
   }, []);
 
-  const handleFilterSelect = useCallback((filterValue) => {
-    setActiveFilter(filterValue);
-    setIsFilterShow(false);
-  }, []);
+  const handleFilterClick = (filter) => {
+    setSelectedFilter(filter);
+  };
 
   const handleSearchClose = useCallback(() => {
     setSearch("");
@@ -153,23 +152,19 @@ const Main = () => {
                     <FcFilledFilter />
                   </button>
                 </div>
-                {isFilterShow && (
-                  <div className="filter_card">
-                    <ul className="filter_list">
-                      {filter.map((fill) => (
-                        <li
-                          key={fill.value}
-                          className={
-                            activeFilter === fill.value ? "active" : ""
-                          }
-                          onClick={() => handleFilterSelect(fill.value)}
-                        >
-                          {fill.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {
+                  isFilterShow && (
+
+                <div className="filter_card">
+      <ul className="filter_list">
+        <li onClick={() => {handleFilterClick("All");setIsFilterShow(false)}}>All</li>
+        <li onClick={() => {handleFilterClick("A");setIsFilterShow(false)}}>A</li>
+        <li onClick={() => {handleFilterClick("B");setIsFilterShow(false)}}>B</li>
+        <li onClick={() => {handleFilterClick("C");setIsFilterShow(false)}}>C</li>
+      </ul>
+    </div>
+                  )
+                }
               </div>
             </div>
           </div>
@@ -186,7 +181,9 @@ const Main = () => {
   handleedit={handleedit}
   handleChange={handleChange}
   handleDelete={handleDelete}
-  filteredLeaddata ={filteredLeaddata }
+  filteredLeaddata ={filteredLeaddata}
+  open={open}
+  setOpen={setOpen}
 />
 
           <AddTodoForm handleAddTodo={addTodo} toast={toast} setLeaddata={setLeaddata} />

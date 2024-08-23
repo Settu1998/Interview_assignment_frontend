@@ -4,9 +4,15 @@ import Model from '../Modal/Modal'
 import { useForm } from "react-hook-form";
 import EditModel from "../Modal/EditModel";
 import { RiCloseLargeFill } from "react-icons/ri";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
-const TodoItem = ({ filteredLeaddata ,handleDelete,handleedit,setFiterValue,FiterValue, handleChange, deleteTodo,setLeaddata,Leaddata,editopen,seteditopen }) => {
+const TodoItem = ({ filteredLeaddata ,handleDelete,handleedit,setFiterValue,FiterValue, handleChange, deleteTodo,setLeaddata,Leaddata,editopen,seteditopen,open,setOpen }) => {
   const {
     register,
     handleSubmit,
@@ -22,6 +28,8 @@ const TodoItem = ({ filteredLeaddata ,handleDelete,handleedit,setFiterValue,Fite
 
   console.log('FILTER DATA VALUE',FiterValue);
   
+ 
+
 
 const fetchlead = async() => {
   const res = await axios.get('https://interview-assignment-backend-zzx0.onrender.com/api/getlead');
@@ -40,7 +48,7 @@ const handleeditdata = async(e) => {
   const res = await axios.patch('https://interview-assignment-backend-zzx0.onrender.com/api/UpateLead',FiterValue);
   console.log(res.data);
   if(res.data.code == 200){
-    seteditopen(false);
+    setOpen(false);
     updateDataById(FiterValue.id,FiterValue);
   }else{
     console.log(res.data.message);
@@ -128,15 +136,26 @@ const updateDataById = (id, newData) => {
         </button>
       </div>
     </div>
-    {editopen && (
-      <div className="modal-overlay">
-        <div className="modal-card">
+
+
+    <Dialog
+        open={open}
+        onClose={()=>setOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="sm" // Increase width (options: 'xs', 'sm', 'md', 'lg', 'xl')
+        fullWidth // Set to true for full width
+      >
+       
+        <DialogContent>
+          
+
           <div className="modal_top">
             <h2>Edit Lead</h2>
             <button
               className="close-btn"
               onClick={() => {
-                seteditopen(false);
+                setOpen(false);
                 setFiterValue("");
               }}
             >
@@ -177,7 +196,7 @@ const updateDataById = (id, newData) => {
                 <input
                   type="tel"
                   name="mobile"
-                  value={FiterValue?.mobile || ""}
+                  value={FiterValue?.number || ""}
                   onChange={handleChange}
                   placeholder="Enter your mobile number"
                 />
@@ -210,7 +229,13 @@ const updateDataById = (id, newData) => {
               </button>
             </form>
           </div>
-        </div>
+        </DialogContent>
+        
+      </Dialog>
+
+    {editopen && (
+      <div className="modal-overlay">
+       
       </div>
     )}
   </div>
