@@ -225,7 +225,7 @@ const updateDataById = (id, newData) => {
               </div>
 
               <button type="submit" className="submit-btn">
-                Edit Task
+                Edit Lead
               </button>
             </form>
           </div>

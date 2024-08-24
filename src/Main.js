@@ -155,16 +155,20 @@ const Main = () => {
                 {
                   isFilterShow && (
 
+              <>
                 <div className="filter_card">
       <ul className="filter_list">
-        <li onClick={() => {handleFilterClick("All");setIsFilterShow(false)}}>All</li>
-        <li onClick={() => {handleFilterClick("A");setIsFilterShow(false)}}>A</li>
-        <li onClick={() => {handleFilterClick("B");setIsFilterShow(false)}}>B</li>
-        <li onClick={() => {handleFilterClick("C");setIsFilterShow(false)}}>C</li>
+        <li style={{ backgroundColor:selectedFilter == 'All' ? 'blue' : null,color:selectedFilter == 'All' ? 'white' : null  }} onClick={() => {handleFilterClick("All");setIsFilterShow(false)}}>All</li>
+        <li style={{ backgroundColor:selectedFilter == 'A' ? 'blue' : null,color:selectedFilter == 'A' ? 'white' : null  }} onClick={() => {handleFilterClick("A");setIsFilterShow(false)}}>A</li>
+        <li style={{ backgroundColor:selectedFilter == 'B' ? 'blue' : null,color:selectedFilter == 'B' ? 'white' : null  }} onClick={() => {handleFilterClick("B");setIsFilterShow(false)}}>B</li>
+        <li style={{ backgroundColor:selectedFilter == 'C' ? 'blue' : null,color:selectedFilter == 'C' ? 'white' : null  }} onClick={() => {handleFilterClick("C");setIsFilterShow(false)}}>C</li>
       </ul>
     </div>
+    
+              </>
                   )
                 }
+                <p>{selectedFilter}</p>
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ const Login = () => {
     const trimmedName = data.name.trim();
     const trimmedPassword = data.password.trim();
       
-
+     console.log(trimmedName, trimmedPassword)
 
     login(trimmedName, trimmedPassword);
 
@@ -66,7 +66,7 @@ const Login = () => {
                 {...register("name", {
                   required: "Name is required",
                   minLength: {
-                    value: 3,
+                    value: 2,
                     message: "Name must be at least 3 characters",
                   },
                 })}
@@ -79,28 +79,25 @@ const Login = () => {
               )}
             </div>
             <div className="form_group">
-              <label className="form_label" htmlFor="username">
-                Username:
-              </label>
-              <input
-                className="form_input"
-                type="text"
-                id="username"
-                {...register("password", {
-                  required: "Password is required",
-                  pattern: {
-                    message:
-                      "Username must not contain special characters or spaces",
-                  },
-                })}
-                aria-required="true"
-                aria-label="Enter your username"
-                placeholder="Enter your username"
-              />
-              {errors.password && (
-                <p className="error_message">{errors.password.message}</p>
-              )}
-            </div>
+  <label className="form_label" htmlFor="password">
+    Password:
+  </label>
+  <input
+    className="form_input"
+    type="password"
+    id="password"
+    {...register("password", {
+      required: "Password is required",
+    })}
+    aria-required="true"
+    aria-label="Enter your password"
+    placeholder="Enter your password"
+  />
+  {errors.password && (
+    <p className="error_message">{errors.password.message}</p>
+  )}
+</div>
+
 
             <button
               className="submit_button"

@@ -20,10 +20,10 @@ const Register = () => {
   const onSubmit = async(data) => {
     const trimmedName = data.name.trim();
     const trimmedPassword = data.password.trim();
-    const trimmedUsername = data.username
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, "_");
+    const trimmedUsername = data.username.trim();
+
+    console.log(trimmedName,trimmedUsername,trimmedPassword);
+    
     
       const res = await axios.post('https://interview-assignment-backend-zzx0.onrender.com/api/signup',{
         name: trimmedName,
@@ -34,7 +34,7 @@ const Register = () => {
   
       login(trimmedName, trimmedUsername);
       if(res.status === 200) {
-        navigate("/home");
+        navigate("/");
       }else{
         alert('Invalid credentials');
       }
