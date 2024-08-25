@@ -39,7 +39,7 @@ const Modal = ({ isOpen, onClose, handleSubmit, register, errors }) => {
             </div>
             <div className="form_group">
               <label htmlFor="description">Name</label>
-              <textarea
+              <input type="text" 
                 name="name"
                 {...register("name", {
                   required: "Name is required",

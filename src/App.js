@@ -9,10 +9,12 @@ import Login from "./auth/Login";
 import PrivateRoute from "./routes/PrivateRoutes";
 import Main from "./Main";
 import Register from "./auth/Register";
+import  { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <Router>
+        <Toaster />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />

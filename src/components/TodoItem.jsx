@@ -10,6 +10,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import toast, { Toaster } from "react-hot-toast";
+
+
 
 
 const TodoItem = ({ filteredLeaddata ,handleDelete,handleedit,setFiterValue,FiterValue, handleChange, deleteTodo,setLeaddata,Leaddata,editopen,seteditopen,open,setOpen }) => {
@@ -45,17 +48,23 @@ const fetchlead = async() => {
 
 const handleeditdata = async(e) => {
   e.preventDefault()
+  console.log(FiterValue.id,FiterValue);
+  
   const res = await axios.patch('https://interview-assignment-backend-zzx0.onrender.com/api/UpateLead',FiterValue);
   console.log(res.data);
   if(res.data.code == 200){
     setOpen(false);
     updateDataById(FiterValue.id,FiterValue);
+    toast.success("Data updated successfully!");
   }else{
     console.log(res.data.message);
+    toast.error("Failed to update data!");
   }
 }
 
 const updateDataById = (id, newData) => {
+  console.log(id, newData);
+  
   const updatedData = Leaddata.map(item => 
     item.id === id ? { ...item, ...newData } : item
   );
@@ -66,7 +75,7 @@ const updateDataById = (id, newData) => {
     <div className="todo_items">
 
 {
-  filteredLeaddata  && filteredLeaddata .map((lead)=>(
+  filteredLeaddata  && filteredLeaddata.map((lead)=>(
     <div
     className={`item_card ${todo.status === "completed" ? "active" : ""}`}
     key={todo.id}
@@ -138,7 +147,12 @@ const updateDataById = (id, newData) => {
     </div>
 
 
-    <Dialog
+    
+  </div>
+  ))
+}
+
+<Dialog
         open={open}
         onClose={()=>setOpen(false)}
         aria-labelledby="alert-dialog-title"
@@ -231,18 +245,7 @@ const updateDataById = (id, newData) => {
           </div>
         </DialogContent>
         
-      </Dialog>
-
-    {editopen && (
-      <div className="modal-overlay">
-       
-      </div>
-    )}
-  </div>
-  ))
-}
-
-   
+      </Dialog> 
     </div>
   );
 };

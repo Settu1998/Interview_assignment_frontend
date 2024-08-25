@@ -6,6 +6,7 @@ import "./Login.css";
 import video from "../assets/videos/loginVideo.mp4";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const { login } = useAuth();
@@ -33,9 +34,10 @@ const Login = () => {
   
     
     if(res.data.code === 200) {
+      toast.success(res.data.message);
       navigate("/home");
     }else{
-      alert('Invalid credentials');
+      toast.error(res.data.message);
     }
     
   };
@@ -57,7 +59,7 @@ const Login = () => {
           >
             <div className="form_group">
               <label className="form_label" htmlFor="name">
-                Name:
+                Username:
               </label>
               <input
                 className="form_input"
@@ -71,8 +73,8 @@ const Login = () => {
                   },
                 })}
                 aria-required="true"
-                aria-label="Enter your name"
-                placeholder="Enter your name"
+                aria-label="Enter your username"
+                placeholder="Enter your username"
               />
               {errors.name && (
                 <p className="error_message">{errors.name.message}</p>

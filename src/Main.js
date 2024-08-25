@@ -41,14 +41,17 @@ const Main = () => {
   }
 
   const handleDelete = async(id) => {
+    console.log(id);
+    
     const res = await axios.post('https://interview-assignment-backend-zzx0.onrender.com/api/deleteLead',{id: id});
     console.log(res.data);
     
     if(res.data.code == 200){
+      toast.success(res.data.message);
    const dleteafter = Leaddata.filter((data) => data.id !== id);
    setLeaddata(dleteafter);
     }else{
-    console.log(res.data.message);
+  toast.error("Falied to delete the data")
     
     }
   }
@@ -125,6 +128,9 @@ const Main = () => {
   const handleMenu = () => {
     setMenu((prev) => !prev);
   };
+
+console.log('Leaddata,',filteredLeaddata);
+
 
   return (
     <div className={`App ${isDarkMode ? "dark-theme" : ""}`}>
