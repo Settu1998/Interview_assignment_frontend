@@ -108,7 +108,7 @@ const Login = () => {
             >
               Submit
             </button>
-            <Link to={'/register'}><a>create new account</a></Link>
+            <Link to={'/register'}><a style={{ color:"blue",textDecoration: 'underline' }}>create new account</a></Link>
           </form>
         </div>
       </div>

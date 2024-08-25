@@ -152,7 +152,7 @@ const Register = () => {
               Submit
             </button>
           </form>
-          <Link to={"/"}>I already have an account, sign in</Link>
+          <Link style={{ color:"blue",textDecoration: 'underline', }} to={"/"}>I already have an account, sign in</Link>
         </div>
       </div>
     </div>
